@@ -23,7 +23,7 @@ class OrderController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $orders = Order::with("product")->latest();
+        $orders = Order::all();
 
         $title = "Order List";
         return view(
@@ -41,10 +41,11 @@ class OrderController extends Controller
     {
         $categories = Category::all();
         $stores = Store::all();
-        $title = "Add Product";
+        $products = Product::all();
+        $title = "Add Order";
         return view(
-            "pages.product.create",
-            compact("categories", "title", "stores")
+            "pages.order.create",
+            compact("categories", "title", "stores", "products")
         );
     }
 
@@ -54,9 +55,31 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            "product_id" => "required|unique:orders",
+            "price" => "required",
+            "qty" => "required",
+            "total" => "required",
+            "status" => "required",
+            "store_id" => "required",
+        ]);
+
+        $data = $request->only(
+            "product_id",
+            "price",
+            "qty",
+            "total",
+            "status",
+            "store_id"
+        );
+        $created = Order::create($data);
+
+        return redirect()
+            ->back()
+            ->with("success", "You data added successfully!");
     }
 
     /**
