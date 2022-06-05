@@ -1,3 +1,4 @@
 import './bootstrap';
 import './sidebar'
-import './confirmation_alert'
+import './category'
+import './store'

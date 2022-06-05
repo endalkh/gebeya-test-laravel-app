@@ -18,7 +18,7 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
 </head>
@@ -27,8 +27,8 @@
 @auth 
 <nav id="sidebar">
     <div class="sidebar-header">
-        <button class="navbar-toggler" type="button" id="sidebarCollapseClose" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="fa fa-bars fa-lg"></span>
+        <button class="navbar-toggler bg-light" type="button" id="sidebarCollapseClose" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="fa fa-bars fa-lg "></span>
         </button>
     </div>
     <ul class="list-unstyled components">
@@ -44,6 +44,7 @@
                     </li>
                 </ul>
             </li>
+            
             <li>
                 <a href="#storeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Store</a>
                 <ul class="collapse list-unstyled" id="storeSubmenu">
@@ -56,6 +57,29 @@
                 </ul>
             </li>
             <li>
+            <li>
+                <a href="#productSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Product</a>
+                <ul class="collapse list-unstyled" id="productSubmenu">
+                    <li>
+                        <a  href="{{ route('product.create') }}">Add</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('product') }}">List</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#orderSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Order</a>
+                <ul class="collapse list-unstyled" id="orderSubmenu">
+                    <li>
+                        <a  href="{{ route('order.create') }}">Add</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('order') }}">List</a>
+                    </li>
+                </ul>
+            </li>
+            <li>                
                 <hr data-content="AND" class="hr-text">
             </li>
             <li>

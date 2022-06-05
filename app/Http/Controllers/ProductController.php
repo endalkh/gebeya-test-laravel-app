@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Store;
+use App\Models\Product;
 use App\Models\Category;
-use App\Models\User;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
-class StoreController extends Controller
+class ProductController extends Controller
 {
     public function __construct()
     {
@@ -22,12 +22,12 @@ class StoreController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $stores = Store::with("owner")->get();
+        $products = Product::with("store", "category")->get();
 
-        $title = "Store List";
+        $title = "Product List";
         return view(
-            "pages.store.index",
-            compact("categories", "stores", "title")
+            "pages.product.index",
+            compact("categories", "products", "title")
         );
     }
 
@@ -39,11 +39,11 @@ class StoreController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $users = User::where("is_admin", false)->get();
-        $title = "Add Store";
+        $stores = Store::all();
+        $title = "Add Order";
         return view(
-            "pages.store.create",
-            compact("categories", "title", "users")
+            "pages.order.create",
+            compact("categories", "title", "stores")
         );
     }
 
@@ -56,23 +56,27 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            "name" => "required|unique:stores",
-            "user_id" => "required",
+            "name" => "required|unique:products",
+            "price" => "required",
+            "qty" => "required",
+            "store_id" => "required",
+            "category_id" => "required",
+            "image" => "required",
         ]);
-        $data = $request->only("name", "user_id");
-        $created = Store::create($data);
 
-        if ($created) {
-            return redirect()
-                ->back()
-                ->with("success", "You data added successfully!");
-        }
+        $data = $request->only(
+            "name",
+            "price",
+            "qty",
+            "store_id",
+            "category_id",
+            "image"
+        );
+        $created = Product::create($data);
 
-        return back()
-            ->withErrors([
-                "name" => "The provided credentials do not match our records.",
-            ])
-            ->onlyInput("email");
+        return redirect()
+            ->back()
+            ->with("success", "You data added successfully!");
     }
 
     /**
@@ -81,7 +85,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store)
+    public function show(Product $product)
     {
         //
     }
@@ -92,7 +96,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit(Product $product)
     {
         //
     }
@@ -104,7 +108,7 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(Request $request, Product $product)
     {
         //
     }
@@ -115,10 +119,9 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy(Product $product)
     {
-        $store->delete();
-
+        $product->delete();
         return redirect()
             ->back()
             ->with("success", "Your data deleted successfully!");

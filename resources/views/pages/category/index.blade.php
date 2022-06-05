@@ -2,6 +2,12 @@
 
 @section('content')
 <table class="table table-striped">
+  @csrf
+    @if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+  @endif
   <thead>
     <tr>
       <th scope="col">#</th>

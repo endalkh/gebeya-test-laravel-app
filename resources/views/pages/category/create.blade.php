@@ -4,11 +4,7 @@
 @section('content')
 <form  method="POST" action="{{ route('category.store') }}">
     @csrf
-    @if(session()->has('success'))
-    <div class="alert alert-success">
-        {{ session()->get('success') }}
-    </div>
-    @endif
+    @include('pages/success')
 
   <!-- Text input -->
   <div class="form-outline mb-4">
