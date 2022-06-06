@@ -23,9 +23,10 @@ class OrderController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $orders = Order::all();
+        $orders = Order::with("product", "store")->get();
 
-        $title = "Order List";
+        $title = count($orders) > 0 ? "Order List" : "No Data is available!";
+
         return view(
             "pages.order.index",
             compact("categories", "orders", "title")
@@ -59,22 +60,20 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            "product_id" => "required|unique:orders",
+            "product_id" => "required",
             "price" => "required",
             "qty" => "required",
-            "total" => "required",
             "status" => "required",
             "store_id" => "required",
         ]);
-
         $data = $request->only(
             "product_id",
             "price",
             "qty",
-            "total",
             "status",
             "store_id"
         );
+        $data["total"] = $data["qty"] * $data["price"];
         $created = Order::create($data);
 
         return redirect()
@@ -124,6 +123,9 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return redirect()
+            ->back()
+            ->with("success", "Your data deleted successfully!");
     }
 }

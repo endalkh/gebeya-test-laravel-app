@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Store;
-
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -16,8 +16,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $title="Category List";
-        return view('pages.category.index', compact('categories','title'));
+        $title =
+            count($categories) > 0 ? "Category List" : "No Data is available!";
+        return view("pages.category.index", compact("categories", "title"));
     }
 
     /**
@@ -27,11 +28,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
-        $categories=Category::all();
-        $title="Add Category";
-        $stories=Store::all();
-        return view('pages.category.create',compact('categories',"title","stories"));
+        $user = Auth::user();
+        $categories = Category::all();
+        $title = "Add Category";
+        $stories = [];
+        if ($user->is_admin == true) {
+            $stories = Store::all();
+        } else {
+            $stories = Store::select("*")
+                ->where("user_id", $user->id)
+                ->get();
+        }
+        return view(
+            "pages.category.create",
+            compact("categories", "title", "stories")
+        );
     }
 
     /**
@@ -43,12 +54,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            'name' => 'required|unique:categories',
-            'store_id' => 'required',
+            "name" => "required|unique:categories",
+            "store_id" => "required",
         ]);
-        $data = $request->only("name","store_id");
-        $created=Category::create($data);
-        return redirect()->back()->with('success', 'You data added successfully!');
+        $data = $request->only("name", "store_id");
+        $created = Category::create($data);
+        return redirect()
+            ->back()
+            ->with("success", "You data added successfully!");
     }
 
     /**
