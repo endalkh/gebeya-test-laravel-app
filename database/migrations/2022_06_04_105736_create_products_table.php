@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string("price");
             $table->string("qty");
             $table->foreignId("store_id")->onDelete("cascade");
-            $table->foreignId("category_id");
+            $table->foreignId("category_id")->nullable();
             $table->string("image");
             $table->boolean("is_active")->default(1);
             $table->timestamps();

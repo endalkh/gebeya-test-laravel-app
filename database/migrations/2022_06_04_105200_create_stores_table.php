@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create("stores", function (Blueprint $table) {
             $table->increments("id");
-            $table->string("name");
+            $table->string("name")->unique();
             $table->foreignId("user_id")->onDelete("cascade");
             $table->boolean("is_active")->default(1);
             $table->timestamps();

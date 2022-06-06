@@ -8,23 +8,18 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Quanity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Total</th>
-      <th scope="col">status</th>
+      <th scope="col">email</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
-  @foreach ($orders as $order)
+  @foreach ($users as $user)
       <tr>
           <th scope="row">{{$loop->index+1}}</th>
-          <td>{{$order->product->name}}</td>
-          <td>{{$order->qty}}</td>
-          <td>{{$order->price}}</td>
-          <td>{{$order->total}}</td>
-          <td>{{$order->status}}</td>
+          <td>{{$user->name}}</td>
+          <td>{{$user->email}}</td>
           <td>
-          <form method="post" action="{{route('order.destroy',$order)}}">
+          <form method="post" action="{{route('user.destroy',$user)}}">
               @method('delete')
               @csrf
               <button class="btn btn-outline-danger"  type="submit"><i class="fa fa-trash"></i></button>

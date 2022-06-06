@@ -19,7 +19,7 @@ class Order extends Model
 
     public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
     public function store()
     {

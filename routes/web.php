@@ -65,3 +65,13 @@ Route::post("order/store", [OrderController::class, "store"])->name(
 Route::delete("order/{order}", [OrderController::class, "destroy"])->name(
     "order.destroy"
 );
+
+#User Management Routes for admin
+Route::get("user", [UserController::class, "index"])->name("user");
+Route::get("user/create", [UserController::class, "create"])->name(
+    "user.create"
+);
+Route::post("user/store", [UserController::class, "store"])->name("user.store");
+Route::delete("user/{user}", [UserController::class, "destroy"])->name(
+    "user.destroy"
+);

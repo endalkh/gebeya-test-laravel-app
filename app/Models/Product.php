@@ -22,6 +22,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
     public function store()
     {
         return $this->belongsTo(Store::class);

@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -21,10 +22,19 @@ class StoreController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $categories = Category::all();
-        $stores = Store::with("owner")->get();
 
-        $title = "Store List";
+        if ($user->is_admin == true) {
+            $stores = Store::with("owner")->get();
+        } else {
+            $stores = Store::with("owner")
+                ->where("user_id", $user->id)
+                ->get();
+        }
+
+        $title =
+            count($categories) > 0 ? "Store List" : "No Data is available!";
         return view(
             "pages.store.index",
             compact("categories", "stores", "title")
@@ -61,18 +71,15 @@ class StoreController extends Controller
         ]);
         $data = $request->only("name", "user_id");
         $created = Store::create($data);
-
-        if ($created) {
-            return redirect()
-                ->back()
-                ->with("success", "You data added successfully!");
+        if (Store::where("user_id", $data["user_id"])->exists()) {
+            return back()->withErrors([
+                "user_id" => "The user has already a store.",
+            ]);
         }
 
-        return back()
-            ->withErrors([
-                "name" => "The provided credentials do not match our records.",
-            ])
-            ->onlyInput("email");
+        return redirect()
+            ->back()
+            ->with("success", "You data added successfully!");
     }
 
     /**

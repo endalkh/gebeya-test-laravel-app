@@ -79,8 +79,25 @@
                     </li>
                 </ul>
             </li>
-            <li>                
-                <hr data-content="AND" class="hr-text">
+            <li>  
+            @if(Auth::check() && Auth::user()->is_admin)
+             <!-- Admin only options -->
+            <li>
+                <a href="#UserSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">User</a>
+                <ul class="collapse list-unstyled" id="UserSubmenu">
+                    <li>
+                        <a  href="{{ route('user.create') }}">Add</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user') }}">List</a>
+                    </li>
+                </ul>
+            </li>
+            <li> 
+            @endif
+            <!--  -->
+
+            <hr data-content="AND" class="hr-text">
             </li>
             <li>
                 <a  href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -138,22 +155,12 @@
                         <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-   
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
 
-                            @if (Route::has('signup'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('signup') }}">{{ __('Sign up') }}</a>
-                                </li>
-                            @endif
-                        @else
+
+                        @auth
                         <!-- Avatar -->
                         <li class="nav-item dropdown" >
+
                             <a
                                 class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
                                 href="#"
@@ -170,7 +177,7 @@
                                     loading="lazy"
                                     />
                             </a>
-                        @endguest
+                        @endauth
 
 
 
@@ -180,7 +187,7 @@
 
 </nav>
 
-    <main class="py-2" style="max-height:80vh;overflow:auto">
+    <main class="py-2 " style="max-height:80vh;overflow:auto">
     @auth
     @if(isset($title))
     <div class="container">

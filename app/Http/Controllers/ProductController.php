@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -21,10 +22,27 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $categories = Category::all();
-        $products = Product::with("store", "category")->get();
+        $products = [];
+        if ($user->is_admin == true) {
+            $products = Product::with("store", "category")->get();
+        } else {
+            $stores = Store::select("id")
+                ->where("user_id", $user->id)
+                ->get();
+            $ids = [];
+            foreach ($stores as $store) {
+                array_push($ids, $store->id);
+            }
+            $products = Product::with("store", "category")
+                ->whereIn("store_id", $ids)
+                ->get();
+        }
 
-        $title = "Product List";
+        $title =
+            count($products) > 0 ? "Product List" : "No Data is available!";
+
         return view(
             "pages.product.index",
             compact("categories", "products", "title")
@@ -39,10 +57,18 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $stores = Store::all();
-        $title = "Add Order";
+        $title = "Add Product";
+        $user = Auth::user();
+        $stores = [];
+        if ($user->is_admin == true) {
+            $stores = Store::all();
+        } else {
+            $stores = Store::select("*")
+                ->where("user_id", $user->id)
+                ->get();
+        }
         return view(
-            "pages.order.create",
+            "pages.product.create",
             compact("categories", "title", "stores")
         );
     }
@@ -56,7 +82,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            "name" => "required|unique:products",
+            "name" => "required",
             "price" => "required",
             "qty" => "required",
             "store_id" => "required",
@@ -72,6 +98,15 @@ class ProductController extends Controller
             "category_id",
             "image"
         );
+        if (
+            Product::where("name", $data["name"])
+                ->where("store_id", $data["store_id"])
+                ->exists()
+        ) {
+            return back()->withErrors([
+                "name" => "This product is already existed.",
+            ]);
+        }
         $created = Product::create($data);
 
         return redirect()

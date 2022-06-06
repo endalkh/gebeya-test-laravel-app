@@ -51,8 +51,8 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                        <div class="row mb-8">
+                            <div class="col-md-8 offset-md-8">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Sigin') }}
                                 </button>

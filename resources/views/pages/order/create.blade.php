@@ -20,7 +20,7 @@
         </span>
       @enderror
   </div>
-
+  <!-- Dropdown selection  -->
   <div class="form-outline mb-4">
     <label class="form-label" for="form2">Store</label>
     <select class="form-select @error('store_id') is-invalid @enderror" id="inputGroupSelect01" name="store_id">
@@ -57,16 +57,7 @@
     @enderror
   </div>
 
-  <!-- Text input -->
-  <div class="form-outline mb-4">
-  <label class="form-label" for="form1">Total</label>
-  <input type="number" min="1"  id="form1" class="form-control @error('total') is-invalid @enderror" name="total" />
-    @error('total')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-  </div>
+  <!-- Dropdown select -->
 
   <div class="form-outline mb-4">
     <label class="form-label" for="form2">Status</label>

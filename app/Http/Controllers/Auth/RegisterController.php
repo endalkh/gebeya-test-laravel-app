@@ -14,33 +14,35 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('auth.register');
+        return view("auth.register");
     }
 
     use RegistersUsers;
     protected $redirectTo = RouteServiceProvider::HOME;
 
     public function doSignup(Request $request)
-    {  
- 
+    {
         $credentials = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:4',
+            "name" => "required",
+            "email" => "required|email|unique:users",
+            "password" => "required|min:4",
         ]);
-           
-        $data = $request->all();
-        $check = $this->create($data);
-         
-        return redirect("/")->withSuccess('You have signed-in');
+
+        $check = $this->create([
+            "name" => $data["name"],
+            "email" => $data["email"],
+            "password" => Hash::make($data["password"]),
+        ]);
+
+        return redirect("/")->withSuccess("You have signed-in");
     }
 
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            "name" => $data["name"],
+            "email" => $data["email"],
+            "password" => Hash::make($data["password"]),
         ]);
     }
 }
