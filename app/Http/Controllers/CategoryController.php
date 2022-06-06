@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -72,7 +76,12 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $title = "Category List";
+        $stores = Store::all();
+        return view(
+            "pages.category.update",
+            compact("category", "stores", "title")
+        );
     }
 
     /**
@@ -95,7 +104,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
+        $category->fill($data)->save();
+        return redirect()
+            ->back()
+            ->with("success", "Your data updated successfully!");
     }
 
     /**

@@ -38,7 +38,6 @@
                                 @enderror
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -51,19 +50,26 @@
                             </div>
                         </div>
 
-                        <div class="row mb-8">
-                            <div class="col-md-8 offset-md-8">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Sigin') }}
-                                </button>
-
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
                                 @endif
                             </div>
                         </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary btn-block mb-4">  {{ __('Login admin') }}</button>
+                           
+                            </div>
+                        </div>
+ 
+
+
+              
                     </form>
                 </div>
             </div>

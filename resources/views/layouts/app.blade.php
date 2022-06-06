@@ -44,7 +44,7 @@
                     </li>
                 </ul>
             </li>
-            
+            @if(Auth::check() && Auth::user()->is_admin)
             <li>
                 <a href="#storeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Store</a>
                 <ul class="collapse list-unstyled" id="storeSubmenu">
@@ -56,6 +56,8 @@
                     </li>
                 </ul>
             </li>
+            @endif
+
             <li>
             <li>
                 <a href="#productSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Product</a>
@@ -207,6 +209,7 @@
     </div>
     @endif
     @endauth
+    
 
     @guest
         @yield('content')

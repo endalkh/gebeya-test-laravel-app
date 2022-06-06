@@ -14,9 +14,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware("auth");
+    }
     public function index()
     {
         $auth = Auth::user();
+
+        if (!$auth->is_admin) {
+            return redirect("/");
+        }
 
         $users = User::where("id", "!=", $auth->id)->get();
         $title = count($users) > 0 ? "User List" : "No Data is available!";
@@ -31,6 +39,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $auth = Auth::user();
+        if (!$auth->is_admin) {
+            return redirect("/");
+        }
         $title = "Add User";
         return view("pages.user.create", compact("title"));
     }
@@ -43,14 +55,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $auth = Auth::user();
+        if (!$auth->is_admin) {
+            return redirect("/");
+        }
         $credentials = $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
             "password" => "required|min:4",
         ]);
-        $data = $request->only("name", "email", "password", "is_admin");
+        $data = $request->only(
+            "name",
+            "email",
+            "password",
+            "is_admin",
+            "is_active"
+        );
         if (!$request->has("is_admin")) {
-            $data["is_admin"] = false;
+            $data["is_admin"] = 0;
         }
 
         $check = User::create([
@@ -76,7 +98,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $title = "User Detail";
+        return view("pages.user.update", compact("user", "title"));
     }
 
     /**
@@ -99,7 +122,22 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
+
+        if (!$request->has("is_admin")) {
+            $data["is_admin"] = 0;
+        }
+        if (!$request->has("is_active")) {
+            $data["is_active"] = 0;
+        }
+        $user->fill($data)->save();
+        return redirect()
+            ->back()
+            ->with("success", "Your data updated successfully!");
     }
 
     /**
@@ -110,6 +148,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $auth = Auth::user();
+
+        if (!$auth->is_admin) {
+            return redirect("/");
+        }
+        $user->delete();
+        return redirect()
+            ->back()
+            ->with("success", "Your data deleted successfully!");
     }
 }

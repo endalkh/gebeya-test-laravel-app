@@ -28,11 +28,8 @@ class RegisterController extends Controller
             "password" => "required|min:4",
         ]);
 
-        $check = $this->create([
-            "name" => $data["name"],
-            "email" => $data["email"],
-            "password" => Hash::make($data["password"]),
-        ]);
+        $data = $request->all();
+        $check = $this->create($data);
 
         return redirect("/")->withSuccess("You have signed-in");
     }

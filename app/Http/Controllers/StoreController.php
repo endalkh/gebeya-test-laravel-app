@@ -20,9 +20,13 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = Auth::user();
+        if (!$user->is_admin) {
+            return redirect("/");
+        }
         $categories = Category::all();
 
         if ($user->is_admin == true) {
@@ -33,8 +37,7 @@ class StoreController extends Controller
                 ->get();
         }
 
-        $title =
-            count($categories) > 0 ? "Store List" : "No Data is available!";
+        $title = count($stores) > 0 ? "Store List" : "No Data is available!";
         return view(
             "pages.store.index",
             compact("categories", "stores", "title")
@@ -48,6 +51,10 @@ class StoreController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
+        if (!$user->is_admin) {
+            return redirect("/");
+        }
         $categories = Category::all();
         $users = User::where("is_admin", false)->get();
         $title = "Add Store";
@@ -65,6 +72,10 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        if (!$user->is_admin) {
+            return redirect("/");
+        }
         $credentials = $request->validate([
             "name" => "required|unique:stores",
             "user_id" => "required",
@@ -90,7 +101,9 @@ class StoreController extends Controller
      */
     public function show(Store $store)
     {
-        //
+        $title = "Store List";
+        $users = User::where("is_admin", false)->get();
+        return view("pages.store.update", compact("store", "users", "title"));
     }
 
     /**
@@ -99,9 +112,8 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit(Request $request, Store $store)
     {
-        //
     }
 
     /**
@@ -113,7 +125,16 @@ class StoreController extends Controller
      */
     public function update(Request $request, Store $store)
     {
-        //
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
+
+        $store->fill($data)->save();
+        return redirect()
+            ->back()
+            ->with("success", "Your data updated successfully!");
     }
 
     /**
@@ -124,6 +145,10 @@ class StoreController extends Controller
      */
     public function destroy(Store $store)
     {
+        $user = Auth::user();
+        if (!$user->is_admin) {
+            return redirect("/");
+        }
         $store->delete();
 
         return redirect()

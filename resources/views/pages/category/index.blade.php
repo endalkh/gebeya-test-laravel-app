@@ -23,9 +23,13 @@
       <td>{{$category->name}}</td>
       <td>{{$category->store->name}}</td>
       <td>
-        <a class="btn btn-outline-primary" id="view_category"><i class="fa fa-eye" aria-hidden="true"></i></a>
-        <a class="btn btn-outline-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>   
-        <a class="btn btn-outline-danger" id="del_category"><i class="fa fa-trash"></i></a>
+      <form method="post" action="{{route('category.destroy',$category)}}">
+        @method('delete')
+        @csrf
+          <a class="btn btn-outline-primary" id="view_category"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <a class="btn btn-outline-danger" id="del_category"><i class="fa fa-trash"></i></a>
+          <a class="btn btn-outline-primary" href="{{route('category.show',$category) }}" ><i class="fa fa-edit" aria-hidden="true"></i></a>    
+        </form>
       </td>
 
     </tr>
