@@ -15,6 +15,7 @@ class Order extends Model
         "total",
         "status",
         "store_id",
+        "is_active",
     ];
 
     public function product()

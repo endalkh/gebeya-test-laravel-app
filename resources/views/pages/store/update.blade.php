@@ -37,6 +37,12 @@
         </span>
       @enderror
   </div>
+  <!-- Create checkbox for Active status -->
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input @error('is_active') is-invalid @enderror" id="exampleCheck1" name='is_active' {{($store->is_active)?"checked":""}} >
+    <label class="form-check-label" for="exampleCheck1" >Active</label>
+  </div>
+  <br>
 
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4">Update</button>

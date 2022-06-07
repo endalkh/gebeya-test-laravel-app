@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -22,15 +23,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
         $orders = Order::with("product", "store")->get();
 
         $title = count($orders) > 0 ? "Order List" : "No Data is available!";
 
-        return view(
-            "pages.order.index",
-            compact("categories", "orders", "title")
-        );
+        return view("pages.order.index", compact("orders", "title"));
     }
 
     /**
@@ -89,7 +86,17 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $title = "Update Order";
+        $user = Auth::user();
+        $stores = [];
+        if ($user->is_admin == true) {
+            $stores = Order::all();
+        } else {
+            $stores = Store::where("store.user_id", $user->id)
+                ->where("is_active", true)
+                ->get();
+        }
+        return view("pages.order.update", compact("title", "order", "stores"));
     }
 
     /**

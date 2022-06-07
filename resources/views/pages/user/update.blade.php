@@ -6,9 +6,6 @@
   @csrf
   @include('pages/success')
   @method('put')
-{{
-  $user
-}}
   <!-- Text input -->
   <div class="form-outline mb-4">
   <label class="form-label" for="form1">Name</label>
@@ -43,7 +40,7 @@
   </div>
   <!-- Create checkbox for Active status -->
   <div class="form-check">
-    <input type="checkbox" {{($user->is_active)?"checked":""}} class="form-check-input @error('is_active') is-invalid @enderror" id="exampleCheck1" name='is_active'>
+    <input type="checkbox" class="form-check-input @error('is_active') is-invalid @enderror" id="exampleCheck1" name='is_active' {{($user->is_active)?"checked":""}} >
     <label class="form-check-label" for="exampleCheck1" >Active</label>
   </div>
 

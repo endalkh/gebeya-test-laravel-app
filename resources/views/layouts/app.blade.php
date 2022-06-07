@@ -112,9 +112,6 @@
                 @csrf
             </form>
             </li>
-
-            
-
     </ul>
 </nav>
 @endauth 
@@ -136,13 +133,13 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
-            @if(isset($categories))
+            <!-- @if(isset($categoryLists)) -->
             <ul class="navbar-nav me-auto">
                 <div class="input-group mb-4">
                     <div class="input-group-text p-0">
                         <select class="form-select form-select-lg shadow-none bg-light border-0">
                             <option>All</option>
-                            @foreach ($categories as $category)
+                            @foreach ($categoryLists as $category)
                             <option>{{ $category->name }}</option>
                             @endforeach
                         </select>
@@ -153,7 +150,7 @@
                     </button>
                 </div>        
             </ul>
-            @endif
+            <!-- @endif -->
             @endauth
 
                         <!-- Right Side Of Navbar -->

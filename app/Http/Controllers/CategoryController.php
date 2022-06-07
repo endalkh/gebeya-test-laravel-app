@@ -109,6 +109,9 @@ class CategoryController extends Controller
                 return $element !== null;
             })
             ->toArray();
+        if (!$request->has("is_active")) {
+            $data["is_active"] = false;
+        }
         $category->fill($data)->save();
         return redirect()
             ->back()
@@ -123,6 +126,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()
+            ->back()
+            ->with("success", "Your data deleted successfully!");
     }
 }

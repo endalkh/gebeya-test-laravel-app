@@ -2,6 +2,7 @@
 
 @section('content')
 <table class="table table-striped">
+
   @csrf
     @if(session()->has('success'))
     <div class="alert alert-success">

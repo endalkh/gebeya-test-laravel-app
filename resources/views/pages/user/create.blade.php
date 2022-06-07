@@ -43,6 +43,7 @@
     <input type="checkbox" class="form-check-input @error('is_admin') is-invalid @enderror" id="exampleCheck1" name='is_admin'>
     <label class="form-check-label" for="exampleCheck1">Make this user Admin</label>
   </div>
+  <br>
 
 
 

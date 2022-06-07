@@ -130,8 +130,11 @@ class StoreController extends Controller
                 return $element !== null;
             })
             ->toArray();
-
+        if (!$request->has("is_active")) {
+            $data["is_active"] = false;
+        }
         $store->fill($data)->save();
+
         return redirect()
             ->back()
             ->with("success", "Your data updated successfully!");

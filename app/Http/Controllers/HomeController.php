@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware("auth");
     }
 
     /**
@@ -27,14 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
-        $title="Home";
-        return view('home',compact('categories',"title"));
+        $categoryLists = Category::where("is_active", true)->get();
+        $title = "Home";
+        return view("home", compact("categoryLists", "title"));
     }
-    public function signOut() {
+    public function signOut()
+    {
         Session::flush();
         Auth::logout();
-  
-        return Redirect('login');
+
+        return Redirect("login");
     }
 }

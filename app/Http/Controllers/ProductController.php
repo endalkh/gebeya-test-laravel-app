@@ -122,7 +122,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $categories = Category::all();
         $title = "Update Product";
         $user = Auth::user();
         $stores = [];
@@ -135,7 +134,7 @@ class ProductController extends Controller
         }
         return view(
             "pages.product.update",
-            compact("categories", "title",'product', "stores")
+            compact("title", "product", "stores")
         );
     }
 
@@ -159,7 +158,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
+        if (!$request->has("is_active")) {
+            $data["is_active"] = false;
+        }
+        $product->fill($data)->save();
+
+        return redirect()
+            ->back()
+            ->with("success", "Your data updated successfully!");
     }
 
     /**

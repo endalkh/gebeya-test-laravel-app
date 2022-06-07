@@ -29,7 +29,7 @@
               @csrf
               <button class="btn btn-outline-danger"  type="submit"><i class="fa fa-trash"></i></button>
               <a class="btn btn-outline-primary" ><i class="fa fa-eye" aria-hidden="true"></i></a>
-              <a class="btn btn-outline-primary" ><i class="fa fa-edit" aria-hidden="true"></i></a>    
+              <a class="btn btn-outline-primary" href="{{route('order.show',$order) }}" ><i class="fa fa-edit" aria-hidden="true"></i></a>     
             </form>
           </td>
     </tr>
