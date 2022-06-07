@@ -74,6 +74,7 @@ class UserController extends Controller
         if (!$request->has("is_admin")) {
             $data["is_admin"] = 0;
         }
+    
 
         $check = User::create([
             "name" => $data["name"],
@@ -127,14 +128,15 @@ class UserController extends Controller
                 return $element !== null;
             })
             ->toArray();
-
-        if (!$request->has("is_admin")) {
-            $data["is_admin"] = 0;
-        }
+        // if (!$request->has("is_admin")) {
+        //     $data["is_admin"] = 0;
+        // }
         if (!$request->has("is_active")) {
             $data["is_active"] = 0;
         }
         $user->fill($data)->save();
+        dd($data);
+
         return redirect()
             ->back()
             ->with("success", "Your data updated successfully!");

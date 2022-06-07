@@ -19,6 +19,7 @@ show
           <th scope="row">{{$loop->index+1}}</th>
           <td>{{$store->name}}</td>
           <td>{{$store->owner->name}}</td>
+          
 
           <!-- For Active status of store -->
           @if($store->is_active)

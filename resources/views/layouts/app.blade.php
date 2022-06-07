@@ -68,6 +68,7 @@
                     <li>
                         <a href="{{ route('product') }}">List</a>
                     </li>
+          
                 </ul>
             </li>
             <li>
@@ -79,6 +80,7 @@
                     <li>
                         <a href="{{ route('order') }}">List</a>
                     </li>
+                    
                 </ul>
             </li>
             <li>  
@@ -180,9 +182,6 @@
                                     />
                             </a>
                         @endauth
-
-
-
 
             </ul>
         </div>    

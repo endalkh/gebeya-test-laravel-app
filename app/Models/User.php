@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = ["password", "remember_token"];
-    protected $visible = ["id", "email"];
+    protected $visible = ["id", "email",'is_active','is_admin','name'];
     /**
      * The attributes that should be cast.
      *

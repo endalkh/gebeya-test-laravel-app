@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->foreignId("store_id")->onDelete("cascade");
             $table->foreignId("category_id")->nullable();
             $table->string("image");
-            $table->boolean("is_active")->default(1);
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer("qty");
             $table->decimal("price", 8, 2);
             $table->decimal("total", 8, 2);
-            $table->boolean("is_active")->default(1);
+            $table->boolean("is_active")->default(true);
             $table->enum("status", ["Open", "Paid", "Completed"]);
             $table->timestamps();
         });

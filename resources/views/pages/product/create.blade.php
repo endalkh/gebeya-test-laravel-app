@@ -18,7 +18,7 @@
   <!-- Text input -->
   <div class="form-outline mb-4">
   <label class="form-label" for="form1">Quanity</label>
-  <input type="text" id="form1" class="form-control @error('qty') is-invalid @enderror" name="qty" />
+  <input type="number" min='1' id="form1" class="form-control @error('qty') is-invalid @enderror" name="qty" />
     @error('name')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

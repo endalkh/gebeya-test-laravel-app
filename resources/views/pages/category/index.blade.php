@@ -13,6 +13,7 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Store</th>
+      <th scope="col">Active</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -22,6 +23,11 @@
       <th scope="row">{{$loop->index+1}}</th>
       <td>{{$category->name}}</td>
       <td>{{$category->store->name}}</td>
+        @if($category->is_active)
+        <td><i class="fa fa-check text-primary" style="font-size:15px"></i></td>
+        @else 
+        <td><i class="fa fa-times text-danger" style="font-size:15px"></i></td>
+        @endif
       <td>
       <form method="post" action="{{route('category.destroy',$category)}}">
         @method('delete')

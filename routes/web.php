@@ -74,11 +74,11 @@ Route::post("product/store", [ProductController::class, "store"])->name(
 Route::delete("product/{product}", [ProductController::class, "destroy"])->name(
     "product.destroy"
 );
-Route::get("product/show/{product}", [OrderController::class, "show"])->name(
-    "order.show"
+Route::get("product/show/{product}", [ProductController::class, "show"])->name(
+    "product.show"
 );
 Route::put("product/update/{product}", [
-    OrderController::class,
+    ProductController::class,
     "update",
 ])->name("product.update");
 

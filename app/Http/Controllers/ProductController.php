@@ -122,7 +122,21 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $categories = Category::all();
+        $title = "Update Product";
+        $user = Auth::user();
+        $stores = [];
+        if ($user->is_admin == true) {
+            $stores = Store::all();
+        } else {
+            $stores = Store::select("*")
+                ->where("user_id", $user->id)
+                ->get();
+        }
+        return view(
+            "pages.product.update",
+            compact("categories", "title",'product', "stores")
+        );
     }
 
     /**
