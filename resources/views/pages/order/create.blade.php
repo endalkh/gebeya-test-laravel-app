@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-
-@section('content')
+@section('content-card')
 <form  method="POST" action="{{ route('order.store') }}">
   @csrf
   @include('pages/success')

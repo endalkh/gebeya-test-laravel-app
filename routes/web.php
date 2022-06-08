@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get("/", [HomeController::class, "index"])->name("home");
+Route::get("dashboard", [HomeController::class, "index"])->name("dashboard");
 Route::get("login", [Auth\LoginController::class, "index"])->name("login");
 Route::post("login", [Auth\LoginController::class, "doLogin"])->name("doLogin");
 Route::get("signup", [Auth\RegisterController::class, "index"])->name("signup");

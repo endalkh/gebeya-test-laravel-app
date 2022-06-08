@@ -72,9 +72,7 @@ class UserController extends Controller
             "role",
             "is_active"
         );
-        // dd( $data);
-        $check = User::create($data);
-              $check = User::create([
+        $check = User::create([
             "name" => $data["name"],
             "email" => $data["email"],
             "role" => $data["role"],
@@ -126,7 +124,9 @@ class UserController extends Controller
                 return $element !== null;
             })
             ->toArray();
- 
+
+        $data["password"] =Hash::make($data["password"]);
+        
         if (!$request->has("is_active")) {
             $data["is_active"] = false;
         }
@@ -146,7 +146,7 @@ class UserController extends Controller
     {
         $auth = Auth::user();
 
-        if (!$auth->is_admin) {
+        if ($auth->role!="admin") {
             return redirect("/");
         }
         $user->delete();

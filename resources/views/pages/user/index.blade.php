@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-@section('content')
+@section('content-card')
 <table class="table table-striped">
   @include('pages/success')
 
@@ -10,7 +10,7 @@
       <th scope="col">Name</th>
       <th scope="col">email</th>
       <th scope="col">Active</th>
-      <th scope="col">Admin</th>
+      <th scope="col">Role</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -28,11 +28,8 @@
           @endif
           
           <!-- For Admin status of users -->
-          @if($user->is_admin)
-          <td><i class="fa fa-check text-primary" style="font-size:15px"></i></td>
-          @else 
-          <td><i class="fa fa-times text-danger" style="font-size:15px"></i></td>
-          @endif
+          <td>{{$user->role}}</td>
+
 
           <td>
           <form method="post" action="{{route('user.destroy',$user)}}">

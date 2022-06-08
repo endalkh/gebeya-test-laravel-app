@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-@section('content')
+@section('content-card')
 <form  method="POST" action="{{ route('category.store') }}">
-    @csrf
-    @include('pages/success')
-
+  @csrf
+  @include('pages/success')
   <!-- Text input -->
   <div class="form-outline mb-4">
   <label class="form-label" for="form1">Name</label>

@@ -1,0 +1,20 @@
+#client-home{ 
+    width: 15rem;
+    margin:10px;
+    border-radius: 2%;
+
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: $primary;
+        background-color: $secondary;
+        color: $primary;
+        cursor: pointer;
+      }
+
+//   .card-body{
+//     &:hover { 
+//         background: linear-gradient(to top, green 4px, transparent 0); 
+//         cursor: pointer;
+//       } 
+//   }
+}

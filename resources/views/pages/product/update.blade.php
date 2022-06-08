@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-
-@section('content')
+@section('content-card')
 <form  method="post" action="{{ route('product.update',$product) }}">
   @include('pages/success')
   @method('put')

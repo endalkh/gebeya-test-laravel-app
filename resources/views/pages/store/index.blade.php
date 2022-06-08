@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-@section('content')
+@section('content-card')
 <table class="table table-striped">
   @include('pages/success')
 show

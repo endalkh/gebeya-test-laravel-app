@@ -1,7 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.homecard')
 
-
-@section('content')
+@section('content-card')
 <form  method="POST" action="{{ route('user.store') }}">
   @csrf
   @include('pages/success')
@@ -44,9 +43,9 @@
     <label class="form-label" for="form2">Role</label>
     <select class="form-select @error('status') is-invalid @enderror" id="inputGroupSelect01" name="role">
           <option selected disabled >Choose...</option>
-          <option  value="Open">admin</option>
-          <option  value="Open">client</option>
-          <option  value="Open">normal user</option>
+          <option  value="admin">admin</option>
+          <option  value="client">client</option>
+          <option  value="normal user">normal user</option>
     </select>
     @error('status')
         <span class="invalid-feedback" role="alert">
