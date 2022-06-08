@@ -44,11 +44,23 @@
     <label class="form-check-label" for="exampleCheck1" >Active</label>
   </div>
 
-  
-  <div class="form-check">
-    <input type="checkbox"  class="form-check-input @error('is_admin') is-invalid @enderror" id="exampleCheck2" name='is_admin' {{($user->is_admin)? "checked":""}}>
-    <label class="form-check-label" for="exampleCheck2">Make this user Admin</label>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form2">Status</label>
+    <select class="form-select @error('status') is-invalid @enderror" id="inputGroupSelect01" name="role">
+          <!-- <option selected disabled >Choose...</option> -->
+          <option  value="Open"  {{($user->role=='admin')? "selected":""}}>admin</option>
+          <option  value="Open" {{($user->role=='admin')? "selected":""}}>client</option>
+          <option  value="Open" {{($user->role=='admin')? "selected":""}}>normal user</option>
+    </select>
+    @error('status')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
   </div>
+
+  
+
 
   <br>
   <!-- Submit button -->

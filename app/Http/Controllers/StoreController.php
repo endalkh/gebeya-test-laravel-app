@@ -24,12 +24,12 @@ class StoreController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if (!$user->is_admin) {
+        if (!$user->role) {
             return redirect("/");
         }
         $categories = Category::all();
 
-        if ($user->is_admin == true) {
+        if ($user->role == true) {
             $stores = Store::with("owner")->get();
         } else {
             $stores = Store::with("owner")
@@ -52,11 +52,11 @@ class StoreController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if (!$user->is_admin) {
+        if (!$user->role) {
             return redirect("/");
         }
         $categories = Category::all();
-        $users = User::where("is_admin", false)->get();
+        $users = User::where("role", false)->get();
         $title = "Add Store";
         return view(
             "pages.store.create",
@@ -73,7 +73,7 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if (!$user->is_admin) {
+        if (!$user->role!='admin') {
             return redirect("/");
         }
         $credentials = $request->validate([
@@ -81,12 +81,14 @@ class StoreController extends Controller
             "user_id" => "required",
         ]);
         $data = $request->only("name", "user_id");
-        $created = Store::create($data);
+
         if (Store::where("user_id", $data["user_id"])->exists()) {
             return back()->withErrors([
                 "user_id" => "The user has already a store.",
             ]);
         }
+        $created = Store::create($data);
+
 
         return redirect()
             ->back()
@@ -102,7 +104,7 @@ class StoreController extends Controller
     public function show(Store $store)
     {
         $title = "Store List";
-        $users = User::where("is_admin", false)->get();
+        $users = User::where("role", false)->get();
         return view("pages.store.update", compact("store", "users", "title"));
     }
 
@@ -149,7 +151,7 @@ class StoreController extends Controller
     public function destroy(Store $store)
     {
         $user = Auth::user();
-        if (!$user->is_admin) {
+        if ($user->role!='admin') {
             return redirect("/");
         }
         $store->delete();

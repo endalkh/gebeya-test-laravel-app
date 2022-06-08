@@ -25,7 +25,7 @@ class ProductController extends Controller
         $user = Auth::user();
         $categories = Category::all();
         $products = [];
-        if ($user->is_admin == true) {
+        if ($user->role == 'admin') {
             $products = Product::with("store", "category")->get();
         } else {
             $stores = Store::select("id")
@@ -60,7 +60,7 @@ class ProductController extends Controller
         $title = "Add Product";
         $user = Auth::user();
         $stores = [];
-        if ($user->is_admin == true) {
+        if ($user->role == 'admin') {
             $stores = Store::all();
         } else {
             $stores = Store::select("*")
@@ -125,7 +125,7 @@ class ProductController extends Controller
         $title = "Update Product";
         $user = Auth::user();
         $stores = [];
-        if ($user->is_admin == true) {
+        if ($user->admin == 'admin') {
             $stores = Store::all();
         } else {
             $stores = Store::select("*")

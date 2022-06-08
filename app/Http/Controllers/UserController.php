@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $auth = Auth::user();
 
-        if (!$auth->is_admin) {
+        if ($auth->role!='admin') {
             return redirect("/");
         }
 
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function create()
     {
         $auth = Auth::user();
-        if (!$auth->is_admin) {
+        if ($auth->role!='admin') {
             return redirect("/");
         }
         $title = "Add User";
@@ -56,30 +56,29 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $auth = Auth::user();
-        if (!$auth->is_admin) {
+        if ($auth->role!='admin') {
             return redirect("/");
         }
         $credentials = $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
             "password" => "required|min:4",
+            "role" => "required",
         ]);
         $data = $request->only(
             "name",
             "email",
             "password",
-            "is_admin",
+            "role",
             "is_active"
         );
-        if (!$request->has("is_admin")) {
-            $data["is_admin"] = 0;
-        }
-
-        $check = User::create([
+        // dd( $data);
+        $check = User::create($data);
+              $check = User::create([
             "name" => $data["name"],
             "email" => $data["email"],
-            "is_admin" => $data["is_admin"],
-            "password" => Hash::make($data["password"]),
+            "role" => $data["role"],
+            "password" => Hash::make($data["password"])
         ]);
 
         return redirect()
@@ -127,9 +126,7 @@ class UserController extends Controller
                 return $element !== null;
             })
             ->toArray();
-        if (!$request->has("is_admin")) {
-            $data["is_admin"] = false;
-        }
+ 
         if (!$request->has("is_active")) {
             $data["is_active"] = false;
         }

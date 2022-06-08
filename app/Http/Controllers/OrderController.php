@@ -89,7 +89,7 @@ class OrderController extends Controller
         $title = "Update Order";
         $user = Auth::user();
         $stores = [];
-        if ($user->is_admin == true) {
+        if ($user->role == 'admin') {
             $stores = Order::all();
         } else {
             $stores = Store::where("store.user_id", $user->id)

@@ -44,7 +44,7 @@
                     </li>
                 </ul>
             </li>
-            @if(Auth::check() && Auth::user()->is_admin)
+            @if(Auth::check() && Auth::user()->role=='admin')
             <li>
                 <a href="#storeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Store</a>
                 <ul class="collapse list-unstyled" id="storeSubmenu">
@@ -84,7 +84,7 @@
                 </ul>
             </li>
             <li>  
-            @if(Auth::check() && Auth::user()->is_admin)
+            @if(Auth::check() && Auth::user()->role=='admin')
              <!-- Admin only options -->
             <li>
                 <a href="#UserSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">User</a>

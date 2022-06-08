@@ -38,12 +38,24 @@
         </span>
     @enderror
   </div>
+  <!-- Dropdown select -->
 
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input @error('is_admin') is-invalid @enderror" id="exampleCheck1" name='is_admin'>
-    <label class="form-check-label" for="exampleCheck1">Make this user Admin</label>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form2">Role</label>
+    <select class="form-select @error('status') is-invalid @enderror" id="inputGroupSelect01" name="role">
+          <option selected disabled >Choose...</option>
+          <option  value="Open">admin</option>
+          <option  value="Open">client</option>
+          <option  value="Open">normal user</option>
+    </select>
+    @error('status')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+      @enderror
   </div>
-  <br>
+
+
 
 
 

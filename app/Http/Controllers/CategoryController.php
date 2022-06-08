@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         $title = "Add Category";
         $stories = [];
-        if ($user->is_admin == true) {
+        if ($user->role == 'admin') {
             $stories = Store::all();
         } else {
             $stories = Store::select("*")
