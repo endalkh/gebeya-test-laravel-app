@@ -1,0 +1,32 @@
+@import '../variables';
+
+
+.client-home{ 
+    width: 15rem;
+    margin:10px;
+    border-radius: 2%;
+    outline-color: $primary;
+    color: $primary;
+    border-radius: 10px;
+    img{
+        // border-radius: 50%;
+        padding: 1rem;
+    }
+
+    &:hover {
+        transition: all 0.3s ease-out;
+        background: $primary;
+        color: $secondary;
+        cursor: pointer;
+        transform: scale(1.06);
+        transition: all 0.3s ease-out;
+      }
+
+
+}
+
+
+
+
+
+

@@ -56,7 +56,7 @@ class StoreController extends Controller
             return redirect("/");
         }
         $categories = Category::all();
-        $users = User::where("role", false)->get();
+        $users = User::where("role", "client")->get();
         $title = "Add Store";
         return view(
             "pages.store.create",
@@ -73,7 +73,7 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        if (!$user->role!='admin') {
+        if ($user->role!='admin') {
             return redirect("/");
         }
         $credentials = $request->validate([

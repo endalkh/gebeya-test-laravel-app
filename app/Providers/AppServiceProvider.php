@@ -26,17 +26,22 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer("*", function ($view) {
-            if (Auth::check()) {
-                $auth_id = Auth::user()->id;
-                $categories = Category::whereRelation(
-                    "store",
-                    "user_id",
-                    $auth_id
-                )
-                    ->where("is_active", true)
-                    ->get();
-                View::share("categories", $categories);
-            }
+            if (Auth::check()){
+                $auth = Auth::user();
+                if ($auth->role=='user') {
+                    $categories = Category::where("is_active", true)->get();
+                    View::share("categories", $categories);
+                }
+                else{
+                    $categories = Category::whereRelation(
+                        "store",
+                        "user_id",
+                        $auth->id
+                    )->where("is_active", true)->get();
+
+                    View::share("categories", $categories);
+                }
+        }
         });
     }
 }

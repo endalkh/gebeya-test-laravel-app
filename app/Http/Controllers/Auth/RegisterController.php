@@ -26,13 +26,30 @@ class RegisterController extends Controller
             "name" => "required",
             "email" => "required|email|unique:users",
             "password" => "required|min:4",
+            "role" => "required",
         ]);
+        
 
         $data = $request->all();
+        if ($data["password"]!=$data["password_confirmation"]){
+            return back()->withErrors([
+                "password" => "The password is not matched with the confirm.",
+            ]);
+        }
+
         $check = $this->create($data);
 
         return redirect("/")->withSuccess("You have signed-in");
     }
+    public function options()
+    {
+        
+        return view("auth.signupCard");
+    }
+
+
+    
+    
 
     protected function create(array $data)
     {
@@ -40,6 +57,7 @@ class RegisterController extends Controller
             "name" => $data["name"],
             "email" => $data["email"],
             "password" => Hash::make($data["password"]),
+            "role" => $data["role"],
         ]);
     }
 }

@@ -1,0 +1,21 @@
+.client-home {
+  width: 15rem;
+  margin: 10px;
+  border-radius: 2%;
+  outline-color: #47748b;
+  color: #47748b;
+  border-radius: 10px;
+}
+.client-home img {
+  padding: 1rem;
+}
+.client-home:hover {
+  transition: all 0.3s ease-out;
+  background: #47748b;
+  color: #feffff;
+  cursor: pointer;
+  transform: scale(1.06);
+  transition: all 0.3s ease-out;
+}
+
+/*# sourceMappingURL=card.css.map */

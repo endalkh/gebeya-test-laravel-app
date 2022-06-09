@@ -3,9 +3,9 @@
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
+@import "../variables";
 body{
-    color: #999;
+    color: $primary;
 
 }
 p {
@@ -24,12 +24,14 @@ a:focus {
 }
 
 .navbar {
-    // padding: 15px 10px;
-    background: var($primary);
+    padding: 15px 10px;
+    background: $primary;
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
+    margin-top: 10px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    height: 70px;
 }
 
 .navbar-btn {

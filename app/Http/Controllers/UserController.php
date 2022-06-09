@@ -124,13 +124,17 @@ class UserController extends Controller
                 return $element !== null;
             })
             ->toArray();
+        if ($request->has("password")){
+            $data = $request->all();
+            $data["password"] =Hash::make($data["password"]);
 
-        $data["password"] =Hash::make($data["password"]);
+        }
         
         if (!$request->has("is_active")) {
             $data["is_active"] = false;
         }
         $user->fill($data)->save();
+        
         return redirect()
             ->back()
             ->with("success", "Your data updated successfully!");

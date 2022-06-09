@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
-@section('content')
+@section('content-base')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('signup') }}">
+                    <form method="POST" action="{{ route('user.doSignup') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -38,7 +38,24 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- Role of user registeration -->
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
 
+                            <div class="col-md-6">
+                                <select class="form-select @error('role') is-invalid @enderror" id="inputGroupSelect01" name="role">
+                                    <option selected disabled >Choose...</option>
+                                    <option  value="client">client</option>
+                                    <option  value="normal user">normal user</option>
+                                </select>
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <!-- Password Fields -->
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
@@ -52,6 +69,8 @@
                                 @enderror
                             </div>
                         </div>
+
+
 
                         <div class="row mb-3">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
@@ -68,8 +87,16 @@
                                 </button>
                             </div>
                         </div>
+
+
+               
                     </form>
+                 <!-- Dropdown select -->
+
+
+               
                 </div>
+                
             </div>
         </div>
     </div>

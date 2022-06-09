@@ -30,7 +30,6 @@ class HomeController extends Controller
     {
         $products = Product::where("is_active", true)->get();
         $title = "Home";
-        // pages.dashboard.dashboard
         $user = Auth::user();
         if ($user->role == 'user') {
             return view("home", compact("products", "title"));
