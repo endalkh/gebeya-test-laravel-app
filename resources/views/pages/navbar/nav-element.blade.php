@@ -26,7 +26,7 @@
                         />
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <span href="#" class="dropdown-item">My account</span>
+                        <span class="dropdown-item">{{Auth::user()->name}}</span>
                         <div class="dropdown-divider"></div>
 
                         <a href="#" class="dropdown-item">My account</a>

@@ -31,13 +31,13 @@ class HomeController extends Controller
         $products = Product::where("is_active", true)->get();
         $title = "Home";
         $user = Auth::user();
-        if ($user->role == 'user') {
+        if ($user->role == "user") {
             return view("home", compact("products", "title"));
-
-        }
-        else {
-            return view("pages.dashboard.dashboard", compact("products", "title"));
-
+        } else {
+            return view(
+                "pages.dashboard.dashboard",
+                compact("products", "title")
+            );
         }
     }
     public function signOut()

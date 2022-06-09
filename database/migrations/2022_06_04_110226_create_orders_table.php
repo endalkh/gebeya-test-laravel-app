@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->decimal("total", 8, 2);
             $table->boolean("is_active")->default(true);
             $table->enum("status", ["Open", "Paid", "Completed"]);
+            $table->foreignId("created_by")->onDelete("cascade");
             $table->timestamps();
         });
     }

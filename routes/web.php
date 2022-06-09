@@ -14,9 +14,10 @@ Route::get("login", [Auth\LoginController::class, "index"])->name("login");
 Route::post("login", [Auth\LoginController::class, "doLogin"])->name("doLogin");
 Route::get("signup", [Auth\RegisterController::class, "index"])->name("signup");
 // Route::get("signup/options", [Auth\RegisterController::class, "options"])->name("signup.options");
-Route::post("signup/doSignup", [Auth\RegisterController::class, "doSignup"])->name(
-    "user.doSignup"
-);
+Route::post("signup/doSignup", [
+    Auth\RegisterController::class,
+    "doSignup",
+])->name("user.doSignup");
 Route::get("/logout", [HomeController::class, "signOut"])->name("logout");
 Route::get("forgot-password", [
     Auth\LoginController::class,
@@ -117,3 +118,7 @@ Route::get("user/show/{user}", [UserController::class, "show"])->name(
 Route::put("user/update/{user}", [UserController::class, "update"])->name(
     "user.update"
 );
+
+#Adding to Cart
+Route::get("cart", [CartController::class, "index"])->name("cart");
+Route::post("cart/store", [CartController::class, "store"])->name("cart.store");

@@ -41,11 +41,11 @@
 
   <div class="form-outline mb-4">
     <label class="form-label" for="form2">Role</label>
-    <select class="form-select @error('status') is-invalid @enderror" id="inputGroupSelect01" name="role">
+    <select class="form-select @error('role') is-invalid @enderror" id="inputGroupSelect01" name="role">
           <option selected disabled >Choose...</option>
           <option  value="admin">admin</option>
           <option  value="client">client</option>
-          <option  value="normal user">normal user</option>
+          <option  value="user">normal user</option>
     </select>
     @error('status')
         <span class="invalid-feedback" role="alert">

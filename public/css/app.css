@@ -10471,7 +10471,7 @@ a.download {
 .client-home:hover {
   transition: all 0.3s ease-out;
   background: #47748b;
-  color: #feffff;
+  color: #fff;
   cursor: pointer;
   transform: scale(1.06);
   transition: all 0.3s ease-out;

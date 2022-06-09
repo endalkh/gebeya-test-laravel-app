@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $auth = Auth::user();
 
-        if ($auth->role!='admin') {
+        if ($auth->role != "admin") {
             return redirect("/");
         }
 
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function create()
     {
         $auth = Auth::user();
-        if ($auth->role!='admin') {
+        if ($auth->role != "admin") {
             return redirect("/");
         }
         $title = "Add User";
@@ -56,7 +56,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $auth = Auth::user();
-        if ($auth->role!='admin') {
+        if ($auth->role != "admin") {
             return redirect("/");
         }
         $credentials = $request->validate([
@@ -76,7 +76,7 @@ class UserController extends Controller
             "name" => $data["name"],
             "email" => $data["email"],
             "role" => $data["role"],
-            "password" => Hash::make($data["password"])
+            "password" => Hash::make($data["password"]),
         ]);
 
         return redirect()
@@ -124,17 +124,16 @@ class UserController extends Controller
                 return $element !== null;
             })
             ->toArray();
-        if ($request->has("password")){
+        if ($request->has("password")) {
             $data = $request->all();
-            $data["password"] =Hash::make($data["password"]);
-
+            $data["password"] = Hash::make($data["password"]);
         }
-        
+
         if (!$request->has("is_active")) {
             $data["is_active"] = false;
         }
         $user->fill($data)->save();
-        
+
         return redirect()
             ->back()
             ->with("success", "Your data updated successfully!");
@@ -150,7 +149,7 @@ class UserController extends Controller
     {
         $auth = Auth::user();
 
-        if ($auth->role!="admin") {
+        if ($auth->role != "admin") {
             return redirect("/");
         }
         $user->delete();

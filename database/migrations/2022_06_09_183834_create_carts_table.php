@@ -12,15 +12,13 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create("products", function (Blueprint $table) {
-            $table->increments("id");
-            $table->string("name");
-            $table->string("price");
-            $table->string("qty");
-            $table->foreignId("store_id")->onDelete("cascade");
-            $table->foreignId("category_id")->nullable();
-            $table->foreignId("description")->nullable();
-            $table->string("image");
+        Schema::create("carts", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("product_id")->onDelete("cascade");
+            $table->integer("qty");
+            $table->decimal("price", 8, 2);
+            $table->decimal("total", 8, 2);
+            $table->foreignId("created_by")->onDelete("cascade");
             $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists("products");
+        Schema::dropIfExists("carts");
     }
 };

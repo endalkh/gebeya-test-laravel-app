@@ -2,14 +2,10 @@
 
 @section('content-base')
 <section class='row home-page'>
+@foreach($products as $product)
+    @include('pages.card.card',['button'=>'Add to Cart'])
+@endforeach
 
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
-@include('pages.card.card',['button'=>'Add to Cart'])
 
 </section>
 
