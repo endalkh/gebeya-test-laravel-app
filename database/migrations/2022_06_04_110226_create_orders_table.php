@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create("orders", function (Blueprint $table) {
             $table->increments("id");
-            $table->foreignId("store_id")->onDelete("cascade");
             $table->foreignId("product_id")->onDelete("cascade");
             $table->integer("qty");
             $table->decimal("price", 8, 2);

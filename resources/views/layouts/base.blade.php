@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+@include('sweetalert::alert')
+
 @auth
     @if(Auth::check() && Auth::user()->role!='user')
         <!-- Sidebar of a layout -->

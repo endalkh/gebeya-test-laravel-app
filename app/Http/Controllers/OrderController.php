@@ -38,12 +38,11 @@ class OrderController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $stores = Store::all();
         $products = Product::all();
         $title = "Add Order";
         return view(
             "pages.order.create",
-            compact("categories", "title", "stores", "products")
+            compact("categories", "title", "products")
         );
     }
 
@@ -61,14 +60,12 @@ class OrderController extends Controller
             "price" => "required",
             "qty" => "required",
             "status" => "required",
-            "store_id" => "required",
         ]);
         $data = $request->only(
             "product_id",
             "price",
             "qty",
             "status",
-            "store_id"
         );
         $data["total"] = $data["qty"] * $data["price"];
         $created = Order::create($data);

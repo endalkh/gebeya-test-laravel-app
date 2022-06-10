@@ -19,21 +19,7 @@
         </span>
       @enderror
   </div>
-  <!-- Dropdown selection  -->
-  <div class="form-outline mb-4">
-    <label class="form-label" for="form2">Store</label>
-    <select class="form-select @error('store_id') is-invalid @enderror" id="inputGroupSelect01" name="store_id">
-      <option selected disabled >Choose...</option>
-        @foreach ($stores as $store)
-              <option  value={{$store->id}}>{{ $store->name }}</option>
-        @endforeach
-    </select>
-    @error('store_id')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-      @enderror
-  </div>
+
 
   <!-- Text input -->
   <div class="form-outline mb-4">

@@ -1,4 +1,3 @@
-$(document).ready(function(){
     $('#view_category').on('click', function () {
         swal("Are you sure you want to do this?", {
             buttons: ["Oh noez!", true],
@@ -26,5 +25,3 @@ $(document).ready(function(){
         });
 
     });
-
-});

@@ -13,8 +13,6 @@
                 </li>
                     @endguest
 
-            
-
                 @auth
                 <li class="nav-item dropdown ms-auto hidden-arrow d-flex align-items-center">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">

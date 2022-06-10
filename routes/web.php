@@ -122,3 +122,6 @@ Route::put("user/update/{user}", [UserController::class, "update"])->name(
 #Adding to Cart
 Route::get("cart", [CartController::class, "index"])->name("cart");
 Route::post("cart/store", [CartController::class, "store"])->name("cart.store");
+Route::get("cart/show/{cart}", [CartController::class, "show"])->name(
+    "cart.show"
+);
