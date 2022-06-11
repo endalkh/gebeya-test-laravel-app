@@ -12,6 +12,7 @@
       <th scope="col">Price</th>
       <th scope="col">Total</th>
       <th scope="col">status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>

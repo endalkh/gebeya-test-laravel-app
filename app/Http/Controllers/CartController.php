@@ -41,19 +41,17 @@ class CartController extends Controller
     }
     public function update(Request $request, Cart $cart)
     {
-        // $data = collect($request->all())
-        //     ->filter(function ($element, $key) {
-        //         return $element !== null;
-        //     })
-        //     ->toArray();
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
 
-        // $credentials = $request->validate([
-        //     "qty" => "required",
-        // ]);
+        $credentials = $request->validate([
+            "qty" => "required",
+        ]);
 
-        $cart->update($request->all());
-
-        // $cart->fill($data)->save();
+        $cart->fill($data)->save();
         return redirect()
             ->back()
             ->with("success", "Your data updated successfully!");

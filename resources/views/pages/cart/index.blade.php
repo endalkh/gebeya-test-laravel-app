@@ -38,7 +38,7 @@
         @csrf
           <a class="btn btn-outline-primary"  onclick="updateCart({{$cart}})"><i class="fa fa-check" aria-hidden="true"></i></a>
           <a class="btn btn-outline-danger" id="del_category"><i class="fa fa-trash"></i></a>
-          <a class="btn btn-outline-primary" href="{{route('cart.show',$cart) }}" ><i class="fa fa-edit" aria-hidden="true"></i></a>    
+          <a class="btn btn-outline-primary" href="{{ route('order.create') }}" ><i class="fa fa-plus" aria-hidden="true"></i></a>    
       </td>
 <!--  -->
     </tr>
@@ -50,7 +50,6 @@ const updateCart=(cart)=>{
         // const qty=$("input[name=qty]").val());
         // const qty= $("input[name=qty]").val();
         var qty = $(".qty").val();
-        alert(qty);
         
         var url="{{ route('cart.update',$cart) }}";
         $.ajaxSetup({

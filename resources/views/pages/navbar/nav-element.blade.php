@@ -28,6 +28,9 @@
                         <div class="dropdown-divider"></div>
 
                         <a href="{{route('cart')}}" class="dropdown-item">My Carts</a>
+                        <a href="{{ route('order') }}" class="dropdown-item">My Orders</a>
+                        <div class="dropdown-divider"></div>
+
                         <a href="#" class="dropdown-item">My account</a>
 
                         <a href="#" class="dropdown-item">Settings</a>

@@ -23,7 +23,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with("product", "store")->get();
+        $orders = Order::with("product")->get();
 
         $title = count($orders) > 0 ? "Order List" : "No Data is available!";
 
@@ -55,19 +55,17 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        $auth = Auth::user();
         $credentials = $request->validate([
             "product_id" => "required",
             "price" => "required",
             "qty" => "required",
             "status" => "required",
         ]);
-        $data = $request->only(
-            "product_id",
-            "price",
-            "qty",
-            "status",
-        );
+        $data = $request->only("product_id", "price", "qty");
         $data["total"] = $data["qty"] * $data["price"];
+        $data["created_by"] = $auth->id;
+        $data["status"] = "Open";
         $created = Order::create($data);
 
         return redirect()
@@ -85,15 +83,13 @@ class OrderController extends Controller
     {
         $title = "Update Order";
         $user = Auth::user();
-        $stores = [];
-        if ($user->role == 'admin') {
-            $stores = Order::all();
-        } else {
-            $stores = Store::where("store.user_id", $user->id)
-                ->where("is_active", true)
-                ->get();
-        }
-        return view("pages.order.update", compact("title", "order", "stores"));
+        $products = Product::all();
+        // dd($products);
+
+        return view(
+            "pages.order.update",
+            compact("title", "order", "products")
+        );
     }
 
     /**
@@ -116,7 +112,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $data = collect($request->all())
+            ->filter(function ($element, $key) {
+                return $element !== null;
+            })
+            ->toArray();
+
+        $order->fill($data)->save();
+        return redirect()
+            ->back()
+            ->with("success", "Your data updated successfully!");
     }
 
     /**

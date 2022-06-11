@@ -11,9 +11,9 @@
             </select>
         </div>
         <input type="text" class="form-control" placeholder="Search Here">
-        <button class="input-group-text shadow-none px-4 btn-primary">
+        <a href="/" class="input-group-text shadow-none px-4 btn-primary">
             <i class="fa fa-search"></i>
-        </button>
+</a>
     </div>        
 </ul>
 @endif
