@@ -125,3 +125,9 @@ Route::post("cart/store", [CartController::class, "store"])->name("cart.store");
 Route::get("cart/show/{cart}", [CartController::class, "show"])->name(
     "cart.show"
 );
+Route::delete("cart/{cart}", [CartController::class, "destroy"])->name(
+    "cart.destroy"
+);
+Route::post("cart/update/{cart}", [CartController::class, "update"])->name(
+    "cart.update"
+);

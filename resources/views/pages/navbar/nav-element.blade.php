@@ -27,7 +27,9 @@
                         <span class="dropdown-item">{{Auth::user()->name}}</span>
                         <div class="dropdown-divider"></div>
 
+                        <a href="{{route('cart')}}" class="dropdown-item">My Carts</a>
                         <a href="#" class="dropdown-item">My account</a>
+
                         <a href="#" class="dropdown-item">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();

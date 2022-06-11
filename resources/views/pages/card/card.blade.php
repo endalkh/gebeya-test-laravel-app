@@ -16,54 +16,37 @@
   </div>
 <script>
   const addToCart=(product,user)=>{
-    var url = $(this).attr('action');
-    swal({
-          title: "Are you sure?",
-          text: "Once deleted, you will not be able to recover this imaginary file!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-        .then((willDelete) => {
-          $.ajax({
-                  url: url,
-                  method: 'POST',
-                  data: {
-                    product_id:product.id,
-                    created_at:user.id,
-                  },
-                  success: function (data) {
-                                //
-                      },
-                      
-                  error:function(error){
-                    console.log(error);
-                    swal("hell errors");
-                  }
-              });
-
-          if (willDelete) {
-            swal("Poof! Your imaginary file has been deleted!", {
-              icon: "success",
-            });
-          } else {
-            swal("Your imaginary file is safe!");
-          }
-        });
-    // 
-    // 
-      // e.preventDefault();
-      // var id = $(this).data('id');
-      // swal({
-      //         title: "Are you sure!",
-      //         type: "error",
-      //         confirmButtonClass: "btn-danger",
-      //         confirmButtonText: "Yes!",
-      //         showCancelButton: true,
-      //     });
-      //     function() {
-
-      // };
+    var url="{{ route('cart.store') }}";
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    // Start Ajax call
+      $.ajax({
+              url: url,
+              method: 'POST',
+              data: {
+                product_id:product.id,
+                created_by:user.id,
+                price:product.price,
+                qty:1,
+              },
+              success: function (data) {
+                      swal({
+                          title: "Your data added successfully!",
+                          type: "success",
+                          icon: "success",
+                      });
+                  },   
+              error:function(error){
+                swal({
+                    title: "Unable to add to cart",
+                    type: "error",
+                    icon: "error",
+                });
+              }
+          }); // end of ajax call
   }
 </script>
 </div>

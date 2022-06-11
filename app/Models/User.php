@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Store;
+use App\Models\Cart;
+use App\Models\Product;
 
 class User extends Authenticatable
 {
@@ -18,13 +20,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        "name",
-        "email",
-        "role",
-        "password",
-        "is_active",
-    ];
+    protected $fillable = ["name", "email", "role", "password", "is_active"];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,5 +41,13 @@ class User extends Authenticatable
     public function store()
     {
         return $this->hasOne(Store::class);
+    }
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+    public function product()
+    {
+        return $this->hasOne(Product::class);
     }
 }
