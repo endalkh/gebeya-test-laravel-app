@@ -47,8 +47,6 @@
 
 <script>
 const updateCart=(cart)=>{
-        // const qty=$("input[name=qty]").val());
-        // const qty= $("input[name=qty]").val();
         var qty = $(".qty").val();
         
         var url="{{ route('cart.update',$cart) }}";

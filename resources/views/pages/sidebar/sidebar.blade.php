@@ -5,7 +5,10 @@
             </button>
         </div>
         <ul class="list-unstyled components">
-                <p>CRM</p>
+                <!-- <p>CRM</p> -->
+                <!-- <li> -->
+                <p><a href="{{ route('home') }}">CRM</a></p>
+                <!-- </li> -->
                 <li>
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Category</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
